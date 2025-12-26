@@ -11,30 +11,25 @@ import { Colors } from '../../../theme/Colors';
 import AppButton from '../../../components/AppButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-
-const SignIn: React.FC = ({navigation}) => {
+const SignIn: React.FC = ({ navigation }) => {
   const { width, height } = Dimensions.get('window');
- 
+
   return (
     <View style={styles.container}>
       <Image
         source={require('../../../assets/images/groceryImg.jpg')}
-        style={[
-          styles.bgImage,
-          { width: width * 1.4, height: width * 1.4 },
-        ]}
+        style={[styles.bgImage, { width: width * 1.4, height: width * 1.5 }]}
       />
-
-    
+<Image source={require('../../../assets/images/Carrot-Orange.png')} style={styles.carrotImg}/>
       <Text style={styles.nectarText}>nectar</Text>
 
-    
       <View style={[styles.bottomContainer, { height: height * 0.6 }]}>
-        <Text style={styles.heading}>
-          Get your groceries with nectar
-        </Text>
+        <Text style={styles.heading}>Get your groceries with nectar</Text>
 
-        <TouchableOpacity style={styles.phoneContainer} onPress={()=>navigation.navigate('Number')}>
+        <TouchableOpacity
+          style={styles.phoneContainer}
+          onPress={() => navigation.navigate('Number')}
+        >
           <Image
             source={require('../../../assets/images/flagImg.png')}
             style={styles.flag}
@@ -47,20 +42,44 @@ const SignIn: React.FC = ({navigation}) => {
         <Text style={styles.orText}>Or connect with social media</Text>
 
         <View style={styles.buttonWrapper}>
-          <AppButton
-            title="Continue with Google"
-            onPress={() => navigation.navigate('Number')}
-            backgroundColor={Colors.purpleEC}
-          // iconName=''
-          />
-          {/* <FontAwesome name="google" size={24} color="#DB4437" />
-<FontAwesome name="facebook" size={24} color="#1877F2" /> */}
-          <AppButton
-            title="Continue with Facebook"
-            onPress={() => navigation.navigate('Number')}
-            backgroundColor={Colors.purpleAC}
-            // iconName=''
-          />
+          <View style={styles.button}>
+            <Image
+              source={require('../../../assets/images/Google.png')}
+              style={{
+                height: 22,
+                width: 22,
+                position: 'absolute',
+                zIndex: 1,
+                left: 30,
+                top: 20,
+                resizeMode: 'contain',
+              }}
+            />
+            <AppButton
+              title="Continue with Google"
+              onPress={() => navigation.navigate('Number')}
+              backgroundColor={Colors.purpleEC}
+            />
+          </View>
+          <View style={styles.button}>
+            <Image
+              source={require('../../../assets/images/Facebook.png')}
+              style={{
+                height: 25,
+                width: 25,
+                position: 'absolute',
+                zIndex: 1,
+                left: 30,
+                top: 20,
+                resizeMode: 'contain',
+              }}
+            />
+            <AppButton
+              title="Continue with Facebook"
+              onPress={() => navigation.navigate('Number')}
+              backgroundColor={Colors.purpleAC}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -68,7 +87,6 @@ const SignIn: React.FC = ({navigation}) => {
 };
 
 export default SignIn;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -89,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     position: 'absolute',
     right: 50,
-    top: 40,
+    top: 50,
     transform: [{ rotate: '-130deg' }],
   },
 
@@ -136,5 +154,20 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     gap: 20,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
+  button: {
+    width: '100%',
+   
+  },
+  carrotImg:{
+
+    fontSize: 20,
+    position: 'absolute',
+    right: 40,
+    top: 80,
+    // transform: [{ rotate: '-130deg' }],
+ 
+
+  }
 });

@@ -1,4 +1,5 @@
 import {
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
@@ -22,7 +23,9 @@ const Verification = () => {
           <TouchableOpacity
           style={styles.backBtn}
             onPress={() => navigation.goBack()}
-          ></TouchableOpacity>
+          >
+             <Image source={require('../../../assets/images/Vector.png')}/>
+          </TouchableOpacity>
 
           <Text style={styles.title}>Enter your 4-digit code</Text>
           <Text style={styles.label}>Code</Text>
@@ -43,7 +46,7 @@ const Verification = () => {
               style={styles.nextBtn}
               onPress={() => navigation.navigate('Location'as never)}
             >
-       
+        <Image source={require('../../../assets/images/Frame.png')}/>
             </TouchableOpacity>
           </View>
         </View>
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
   backBtn: {
     height: 40,
     width: 40,
-    backgroundColor: Colors.green75,
+    // backgroundColor: Colors.green75,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

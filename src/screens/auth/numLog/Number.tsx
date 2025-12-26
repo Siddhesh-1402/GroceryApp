@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
 } from 'react-native';
 import { CountryPicker } from 'react-native-country-codes-picker';
 import { Colors } from '../../../theme/Colors';
@@ -29,7 +30,10 @@ const Number = () => {
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
-          ></TouchableOpacity>
+          >
+
+            <Image source={require('../../../assets/images/Vector.png')}/>
+          </TouchableOpacity>
 
           <Text style={styles.title}>Enter your mobile number</Text>
           <Text style={styles.label}>Mobile Number</Text>
@@ -63,7 +67,7 @@ const Number = () => {
             style={styles.nextBtn}
             onPress={() => navigation.navigate('Verification' as never)}
           >
-            {/* <Ionicons name="chevron-forward" size={26} color="#fff" /> */}
+          <Image source={require('../../../assets/images/Frame.png')}/>
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
   backBtn: {
     height: 40,
     width: 40,
-    backgroundColor: Colors.green75,
+    // backgroundColor: Colors.green75,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

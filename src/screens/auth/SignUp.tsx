@@ -42,7 +42,12 @@ const SignUp = () => {
             <View style={styles.divider} />
 
             <Text style={styles.label}>Password</Text>
+            <View style={styles.dropdown}>
+
             <AppInput secureTextEntry placeholder="••••••••" />
+            <Image  source={require('../../assets/images/Vector-Eye.png')}
+            style={{right:20}}/>
+            </View>
             <View style={styles.divider} />
 
             <Text style={styles.term}>
@@ -126,5 +131,9 @@ const styles = StyleSheet.create({
   signupText: {
     color: Colors.green75,
     fontWeight: '600',
+  },
+   dropdown: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

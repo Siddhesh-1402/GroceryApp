@@ -10,6 +10,7 @@ export const Colors = {
     purpleEC: '#5383EC',
     purpleAC: "#4A66AC",
     grey7C:'#7C7C7C',
-    greyB1:'#B1B1B1'
+    greyB1:'#B1B1B1',
+    greyF2:"#F2F3F2"
 }
 

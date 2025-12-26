@@ -29,7 +29,7 @@ const LogIn = () => {
             />
           </View>
 
-          <Text style={styles.title}>Login</Text>
+          <Text style={styles.title}>Loging</Text>
           <Text style={styles.subtitle}>Enter your email and password</Text>
 
           <View style={styles.form}>
@@ -38,7 +38,12 @@ const LogIn = () => {
             <View style={styles.divider} />
 
             <Text style={styles.label}>Password</Text>
+            <View style={styles.dropdown}>
+
             <AppInput secureTextEntry placeholder="••••••••" />
+            <Image  source={require('../../assets/images/Vector-Eye.png')}
+            style={{right:20}}/>
+            </View>
             <View style={styles.divider} />
 
             <Text style={styles.forgot}>Forgot Password?</Text>
@@ -114,5 +119,9 @@ const styles = StyleSheet.create({
   signupText: {
     color: Colors.green75,
     fontWeight: '600',
+  },
+    dropdown: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

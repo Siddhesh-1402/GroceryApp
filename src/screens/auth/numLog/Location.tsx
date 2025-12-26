@@ -10,13 +10,13 @@ const Location = () => {
 
   return (
     <View style={styles.container}>
-    
       <TouchableOpacity
         style={styles.backBtn}
         onPress={() => navigation.goBack()}
-      />
+      >
+        <Image source={require('../../../assets/images/Vector.png')} />
+      </TouchableOpacity>
 
-   
       <View style={styles.imageWrapper}>
         <Image
           source={require('../../../assets/images/illustration.png')}
@@ -24,7 +24,6 @@ const Location = () => {
         />
       </View>
 
-    
       <View style={styles.textWrapper}>
         <Text style={styles.title}>Select Your Location</Text>
         <Text style={styles.subtitle}>
@@ -33,18 +32,28 @@ const Location = () => {
         </Text>
       </View>
 
-
       <View style={styles.form}>
         <Text style={styles.label}>Your Zone</Text>
-        <AppInput />
+        <View style={styles.dropdown}>
+          <AppInput placeholder="Type you area" />
+          <Image
+            source={require('../../../assets/images/Vector-Down.png')}
+            style={{ right: 20, top: 10 }}
+          />
+        </View>
         <View style={styles.divider} />
 
         <Text style={styles.label}>Your Area</Text>
-        <AppInput placeholder="Types of your area" />
+        <View style={styles.dropdown}>
+          <AppInput placeholder="Types of your area" />
+          <Image
+            source={require('../../../assets/images/Vector-Down.png')}
+            style={{ right: 20, top: 10 }}
+          />
+        </View>
         <View style={styles.divider} />
       </View>
 
-  
       <AppButton
         title="Submit"
         onPress={() => navigation.navigate('LogIn' as never)}
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
   backBtn: {
     height: 40,
     width: 40,
-    backgroundColor: Colors.green75,
+    // backgroundColor: Colors.green75,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
@@ -114,5 +123,9 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#E2E2E2',
     marginBottom: 20,
+  },
+  dropdown: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
