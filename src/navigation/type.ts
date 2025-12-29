@@ -3,7 +3,7 @@ export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
   Auth: undefined;
- 
+
 
   ProductDetails: {
     Product: {
@@ -12,4 +12,13 @@ export type RootStackParamList = {
       image: any;
     };
   };
+
+  ProductCategory: {
+    id: number,
+    name: String,
+    backgroundColor: String,
+    image: String,
+    Product: []
+
+  }
 };

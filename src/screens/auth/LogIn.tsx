@@ -34,7 +34,7 @@ const LogIn = () => {
 
           <View style={styles.form}>
             <Text style={styles.label}>Email</Text>
-            <AppInput placeholder="imshuvo97@gmail.com" />
+            <AppInput placeholder="imshuvo97@gmail.com"  autoFocus={true}/>
             <View style={styles.divider} />
 
             <Text style={styles.label}>Password</Text>

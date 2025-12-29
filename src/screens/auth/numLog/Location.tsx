@@ -1,4 +1,13 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../../../theme/Colors';
@@ -9,56 +18,60 @@ const Location = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.goBack()}
-      >
-        <Image source={require('../../../assets/images/Vector.png')} />
-      </TouchableOpacity>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.goBack()}
+          >
+            <Image source={require('../../../assets/images/Vector.png')} />
+          </TouchableOpacity>
 
-      <View style={styles.imageWrapper}>
-        <Image
-          source={require('../../../assets/images/illustration.png')}
-          style={styles.image}
-        />
-      </View>
+          <View style={styles.imageWrapper}>
+            <Image
+              source={require('../../../assets/images/illustration.png')}
+              style={styles.image}
+            />
+          </View>
 
-      <View style={styles.textWrapper}>
-        <Text style={styles.title}>Select Your Location</Text>
-        <Text style={styles.subtitle}>
-          Switch on your location to stay in tune with what’s happening in your
-          area
-        </Text>
-      </View>
+          <View style={styles.textWrapper}>
+            <Text style={styles.title}>Select Your Location</Text>
+            <Text style={styles.subtitle}>
+              Switch on your location to stay in tune with what’s happening in
+              your area
+            </Text>
+          </View>
 
-      <View style={styles.form}>
-        <Text style={styles.label}>Your Zone</Text>
-        <View style={styles.dropdown}>
-          <AppInput placeholder="Type you area" />
-          <Image
-            source={require('../../../assets/images/Vector-Down.png')}
-            style={{ right: 20, top: 10 }}
+          <View style={styles.form}>
+            <Text style={styles.label}>Your Zone</Text>
+            <View style={styles.dropdown}>
+              <AppInput placeholder="Type you area" />
+              <Image
+                source={require('../../../assets/images/Vector-Down.png')}
+                style={{ right: 20, top: 10 }}
+              />
+            </View>
+            <View style={styles.divider} />
+
+            <Text style={styles.label}>Your Area</Text>
+            <View style={styles.dropdown}>
+              <AppInput placeholder="Types of your area" />
+              <Image
+                source={require('../../../assets/images/Vector-Down.png')}
+                style={{ right: 20, top: 10 }}
+              />
+            </View>
+            <View style={styles.divider} />
+          </View>
+
+          <AppButton
+            title="Submit"
+            onPress={() => navigation.navigate('LogIn' as never)}
           />
         </View>
-        <View style={styles.divider} />
-
-        <Text style={styles.label}>Your Area</Text>
-        <View style={styles.dropdown}>
-          <AppInput placeholder="Types of your area" />
-          <Image
-            source={require('../../../assets/images/Vector-Down.png')}
-            style={{ right: 20, top: 10 }}
-          />
-        </View>
-        <View style={styles.divider} />
-      </View>
-
-      <AppButton
-        title="Submit"
-        onPress={() => navigation.navigate('LogIn' as never)}
-      />
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

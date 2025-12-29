@@ -21,9 +21,9 @@ function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Screens" component={AppNavigator} />
+          {/* <Stack.Screen name="Screens" component={AppNavigator} /> */}
 
-          {/* <Stack.Screen name="Tabs" component={TabNavigator} /> */}
+          <Stack.Screen name="Tabs" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

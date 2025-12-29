@@ -6,6 +6,7 @@ import Onboarding from '../screens/Onboarding';
 import AuthNavigator from './AuthNavigator';
 import ProductDetails from '../screens/Details/ProductDetails';
 import { RootStackParamList } from './type';
+import ProductCategory from '../screens/Category/ProductCategory';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -18,6 +19,7 @@ const AppNavigator = () => {
          <Stack.Screen name="Onboarding" component={Onboarding} />
          <Stack.Screen name="Auth" component={AuthNavigator} />
          <Stack.Screen name="ProductDetails" component={ProductDetails} />
+         <Stack.Screen name="ProductCategory" component={ProductCategory} />
     </Stack.Navigator>
   );
 };

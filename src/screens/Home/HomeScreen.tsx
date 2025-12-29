@@ -21,14 +21,12 @@ type HomeNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Shop'>;
 
 const HomeScreen = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-
   const navigation = useNavigation<HomeNavigationProp>();
+  const listRef = useRef<FlatList>(null);
 
   const handleNavigate = (item: any) => {
     navigation.navigate('ProductDetails', { Product: item });
   };
-
-  const listRef = useRef(null);
 
   const ImageSlide = [
     { id: 1, image: require('../../assets/images/Banner1.jpg') },
@@ -37,297 +35,137 @@ const HomeScreen = () => {
   ];
 
   const ExclusiveOffer = [
-    {
-      id: 1,
-      image: require('../../assets/images/Fruite1.jpg'),
-      name: 'Orange',
-    },
-    {
-      id: 2,
-      image: require('../../assets/images/Fruite2.jpg'),
-      name: 'Banana',
-    },
-    {
-      id: 3,
-      image: require('../../assets/images/Fruite3.jpg'),
-      name: 'Papaya',
-    },
-    {
-      id: 4,
-      image: require('../../assets/images/Fruite4.jpg'),
-      name: 'Strawbwery',
-    },
-    {
-      id: 5,
-      image: require('../../assets/images/Fruite5.jpg'),
-      name: 'PineApple',
-    },
+    { id: 1, image: require('../../assets/images/Fruite1.jpg'), name: 'Orange' },
+    { id: 2, image: require('../../assets/images/Fruite2.jpg'), name: 'Banana' },
+    { id: 3, image: require('../../assets/images/Fruite3.jpg'), name: 'Papaya' },
+    { id: 4, image: require('../../assets/images/Fruite4.jpg'), name: 'Strawbwery' },
+    { id: 5, image: require('../../assets/images/Fruite5.jpg'), name: 'PineApple' },
   ];
 
   const BestSelling = [
     { id: 1, image: require('../../assets/images/Fruite6.jpg'), name: 'Kiwi' },
-    {
-      id: 2,
-      image: require('../../assets/images/Fruite7.jpg'),
-      name: 'Cherry',
-    },
-    {
-      id: 3,
-      image: require('../../assets/images/Fruite8.jpg'),
-      name: 'Grapes',
-    },
-    {
-      id: 4,
-      image: require('../../assets/images/Fruite9.jpg'),
-      name: 'Pomegranate',
-    },
-    {
-      id: 5,
-      image: require('../../assets/images/Fruite10.jpg'),
-      name: 'Guava',
-    },
+    { id: 2, image: require('../../assets/images/Fruite7.jpg'), name: 'Cherry' },
+    { id: 3, image: require('../../assets/images/Fruite8.jpg'), name: 'Grapes' },
+    { id: 4, image: require('../../assets/images/Fruite9.jpg'), name: 'Pomegranate' },
+    { id: 5, image: require('../../assets/images/Fruite10.jpg'), name: 'Guava' },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlide(prev => {
         const next = prev + 1 >= ImageSlide.length ? 0 : prev + 1;
-        (listRef.current as any)?.scrollToIndex({
-          index: next,
-          animated: true,
-        });
+        listRef.current?.scrollToIndex({ index: next, animated: true });
         return next;
       });
     }, 3000);
+
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-      <View
-        style={{
-          height: height * 0.13,
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 4,
-        }}
-      >
-        <Image
-          source={require('../../assets/images/Group.png')}
-          style={{ height: 20, width: 20, alignItems: 'center' }}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 10,
-          }}
-        >
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Image source={require('../../assets/images/Group.png')} style={styles.logo} />
+        <View style={styles.locationRow}>
           <Image source={require('../../assets/images/location.png')} />
-          <Text style={{ fontSize: 16 }}>Dhaka,Banassre</Text>
+          <Text style={styles.locationText}>Dhaka, Banassre</Text>
         </View>
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          marginHorizontal: 20,
-          backgroundColor: Colors.greyF2,
-          borderRadius: 10,
-        }}
-      >
-        <Image
-          source={require('../../assets/images/Vector-Search.png')}
-          style={{ margin: 10 }}
-        />
-        <AppInput placeholder="search store" />
+      {/* Search */}
+      <View style={styles.searchBox}>
+        <Image source={require('../../assets/images/Vector-Search.png')} style={styles.searchIcon} />
+        <AppInput placeholder="search store"  autoFocus={true}/>
       </View>
 
       {/* Slider */}
-
-      <View style={{ paddingInline: 20, top: 20, marginBottom: 20 }}>
+      <View style={styles.sliderWrapper}>
         <FlatList
-          data={ImageSlide}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={{ gap: 10 }}
-          horizontal={true}
           ref={listRef}
+          data={ImageSlide}
+          horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id.toString()}
           onMomentumScrollEnd={e => {
             const index = Math.round(e.nativeEvent.contentOffset.x / width);
             setActiveSlide(index);
           }}
           renderItem={({ item }) => (
-            <View>
-              <Image
-                source={item.image}
-                style={{
-                  height: 200,
-                  width: width * 0.9,
-                  resizeMode: 'cover',
-                  borderRadius: 10,
-                  backgroundColor: 'white',
-                }}
-              />
-            </View>
+            <Image source={item.image} style={styles.sliderImage} />
           )}
         />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: 10,
-            position: 'absolute',
-            bottom: 10,
-            marginHorizontal: '50%',
-          }}
-        >
+
+        <View style={styles.dotContainer}>
           {ImageSlide.map((_, index) => (
             <View
               key={index}
-              style={{
-                width: activeSlide === index ? 10 : 8,
-                height: activeSlide === index ? 10 : 8,
-                borderRadius: 5,
-                marginHorizontal: 5,
-                backgroundColor:
-                  activeSlide === index ? Colors.green75 : '#ccc',
-              }}
+              style={[
+                styles.dot,
+                activeSlide === index && styles.activeDot,
+              ]}
             />
           ))}
         </View>
       </View>
 
-      <ScrollView style={{ top: 30 }}>
-        {/* Exculsive Offer */}
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: 20,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: 400 }}>Exclusive Offer</Text>
-          <Text style={{ color: Colors.green75 }}>See all</Text>
-        </View>
-        <View style={{ flex: 1, paddingHorizontal: 10, marginBottom: 20 }}>
-          <FlatList
-            data={ExclusiveOffer}
-            keyExtractor={item => item.id.toString()}
-            contentContainerStyle={{ gap: 10 }}
-            horizontal
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  padding: 10,
-                  borderColor: Colors.grayE2,
-                }}
-                onPress={() => handleNavigate(item)}
-              >
-                <Image
-                  source={item.image}
-                  style={{ height: 150, width: 150, resizeMode: 'contain' }}
-                />
-                <Text style={{ fontSize: 16, fontWeight: 600 }}>
-                  {item.name}
-                </Text>
-                <View
-                  style={{
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    padding: 10,
-                  }}
-                >
-                  <Text style={{ fontSize: 16, fontWeight: 500 }}>$4.99</Text>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: Colors.green75,
-                      padding: 10,
-                      borderRadius: 10,
-                    }}
-                  >
-                    <Image
-                      source={require('../../assets/images/Vector-plus.png')}
-                      style={{ height: 20, width: 20 }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
+      <ScrollView style={styles.scrollView}>
+        {/* Exclusive */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Exclusive Offer</Text>
+          <Text style={styles.seeAll}>See all</Text>
         </View>
 
-        {/* Best Seling */}
+        <FlatList
+          horizontal
+          data={ExclusiveOffer}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={styles.cardList}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => handleNavigate(item)}
+            >
+              <Image source={item.image} style={styles.cardImage} />
+              <Text style={styles.cardTitle}>{item.name}</Text>
+              <View style={styles.cardBottom}>
+                <Text style={styles.price}>$4.99</Text>
+                <TouchableOpacity style={styles.addBtn}>
+                  <Image source={require('../../assets/images/Vector-plus.png')} />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: 20,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: 400 }}>Best Selling</Text>
-          <Text style={{ color: Colors.green75 }}>See all</Text>
+        {/* Best Selling */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Best Selling</Text>
+          <Text style={styles.seeAll}>See all</Text>
         </View>
-        <View style={{ flex: 1, paddingHorizontal: 10, marginBottom: 40 }}>
-          <FlatList
-            data={BestSelling}
-            keyExtractor={item => item.id.toString()}
-            contentContainerStyle={{ gap: 10 }}
-            horizontal
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  padding: 10,
-                  borderColor: Colors.grayE2,
-                }}
-                onPress={() => handleNavigate(item)}
-              >
-                <Image
-                  source={item.image}
-                  style={{ height: 150, width: 150, resizeMode: 'contain' }}
-                />
-                <Text style={{ fontSize: 16, fontWeight: 600 }}>
-                  {item.name}
-                </Text>
-                <View
-                  style={{
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    padding: 10,
-                  }}
-                >
-                  <Text style={{ fontSize: 16, fontWeight: 500 }}>$4.99</Text>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: Colors.green75,
-                      padding: 10,
-                      borderRadius: 10,
-                    }}
-                  >
-                    <Image
-                      source={require('../../assets/images/Vector-plus.png')}
-                      style={{ height: 20, width: 20 }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+
+        <FlatList
+          horizontal
+          data={BestSelling}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={styles.cardList}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => handleNavigate(item)}
+            >
+              <Image source={item.image} style={styles.cardImage} />
+              <Text style={styles.cardTitle}>{item.name}</Text>
+              <View style={styles.cardBottom}>
+                <Text style={styles.price}>$4.99</Text>
+                <TouchableOpacity style={styles.addBtn}>
+                  <Image source={require('../../assets/images/Vector-plus.png')} />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
     </View>
   );
@@ -335,4 +173,140 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+
+  header: {
+    height: height * 0.13,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 4,
+  },
+
+  logo: {
+    height: 20,
+    width: 20,
+  },
+
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  locationText: {
+    fontSize: 16,
+  },
+
+  searchBox: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    backgroundColor: Colors.greyF2,
+    borderRadius: 10,
+  },
+
+  searchIcon: {
+    margin: 10,
+  },
+
+  sliderWrapper: {
+    paddingHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 20,
+  },
+
+  sliderImage: {
+    height: 200,
+    width: width * 0.9,
+    borderRadius: 10,
+    resizeMode: 'cover',
+  },
+
+  dotContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+  },
+
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 5,
+    backgroundColor: '#ccc',
+    marginHorizontal: 5,
+  },
+
+  activeDot: {
+    backgroundColor: Colors.green75,
+    width: 10,
+    height: 10,
+  },
+
+  scrollView: {
+    marginTop: 20,
+  },
+
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '400',
+  },
+
+  seeAll: {
+    color: Colors.green75,
+  },
+
+  cardList: {
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+
+  card: {
+    borderWidth: 1,
+    borderColor: Colors.grayE2,
+    borderRadius: 10,
+    padding: 10,
+    marginRight: 10,
+  },
+
+  cardImage: {
+    height: 150,
+    width: 150,
+    resizeMode: 'contain',
+  },
+
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
+  cardBottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+
+  price: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+
+  addBtn: {
+    backgroundColor: Colors.green75,
+    padding: 10,
+    borderRadius: 10,
+  },
+});
