@@ -15,10 +15,15 @@ export type RootStackParamList = {
 
   ProductCategory: {
     id: number,
-    name: String,
-    backgroundColor: String,
-    image: String,
-    Product: []
-
+    name: string,
+    backgroundColor: string,
+    image: any,
+    Product: Array<{
+      id: number;
+      name: string;
+      price: number;
+      image: string;
+      categoryId: number;
+    }>
   }
 };

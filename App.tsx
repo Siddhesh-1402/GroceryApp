@@ -13,19 +13,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppNavigator from './src/navigation/AppNavigator';
 import TabNavigator from './src/navigation/TabNavigator';
 import ProductDetails from './src/screens/Details/ProductDetails';
+import { CartProvider } from './src/context/CartContext';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* <Stack.Screen name="Screens" component={AppNavigator} /> */}
+      <CartProvider >
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Screens" component={AppNavigator} />
 
-          <Stack.Screen name="Tabs" component={TabNavigator} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            {/* <Stack.Screen name="Tabs" component={TabNavigator} /> */}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CartProvider>
     </SafeAreaProvider>
   );
 }

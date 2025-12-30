@@ -31,7 +31,7 @@ const Verification = () => {
           <Text style={styles.label}>Code</Text>
 
           <View style={styles.inputRow}>
-            <AppInput keyboardType="number-pad" placeholder="   -   -   -   -" />
+            <AppInput keyboardType="number-pad" placeholder="   -   -   -   -"  autoFocus={true}/>
           </View>
 
           <View style={styles.divider} />

@@ -9,6 +9,7 @@ interface AppInputProps {
   keyboardType?: string;
   secureTextEntry?: boolean;
   autoFocus: boolean;
+  style?: any;
 }
 
 const AppInput = ({
@@ -17,6 +18,8 @@ const AppInput = ({
   onChangeText,
   keyboardType = 'default',
   secureTextEntry = false,
+  autoFocus=false,
+  style
 }: AppInputProps) => {
   return (
     <View style={styles.container}>
@@ -26,9 +29,11 @@ const AppInput = ({
         onChangeText={onChangeText}
         keyboardType={keyboardType as any}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor={Colors.grayE2}
-        style={styles.input}
-        autoFocus={true || false}
+        placeholderTextColor={Colors.greyB1}
+        style={[{ fontSize: 16,
+    color: 'black',},style]}
+        autoFocus={autoFocus}
+         
       />
     </View>
   );

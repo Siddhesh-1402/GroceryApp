@@ -47,7 +47,7 @@ const Number = () => {
               <Text style={styles.code}>{dialCode}</Text>
             </TouchableOpacity>
 
-            <AppInput keyboardType="number-pad" />
+            <AppInput keyboardType="number-pad" autoFocus={true}/>
           </View>
 
           <View style={styles.divider} />

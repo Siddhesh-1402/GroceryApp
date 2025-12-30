@@ -34,17 +34,17 @@ const SignUp = () => {
 
           <View style={styles.form}>
             <Text style={styles.label}>Username</Text>
-            <AppInput placeholder="Afsar Hossen Shuvo" />
+            <AppInput placeholder="Afsar Hossen Shuvo" autoFocus={true} />
             <View style={styles.divider} />
 
             <Text style={styles.label}>Email</Text>
-            <AppInput placeholder="imshuvo97@gmail.com" />
+            <AppInput placeholder="imshuvo97@gmail.com"  autoFocus={true}/>
             <View style={styles.divider} />
 
             <Text style={styles.label}>Password</Text>
             <View style={styles.dropdown}>
 
-            <AppInput secureTextEntry placeholder="••••••••" />
+            <AppInput secureTextEntry placeholder="••••••••"  autoFocus={true}/>
             <Image  source={require('../../assets/images/Vector-Eye.png')}
             style={{right:20}}/>
             </View>

@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Colors } from '../../theme/Colors';
 
 import AppInput from '../../components/AppInput';
 import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/type';
 import ProductCategory from '../Category/ProductCategory';
+import FilterScreen from '../Filter/FilterScreen';
 
 const { height, width } = Dimensions.get('window');
 
@@ -28,35 +30,35 @@ const Categories = [
         id: 1,
         name: 'Apple',
         price: 120,
-        image: 'https://via.placeholder.com/150',
+        image: require('../../assets/images/Apple.png'),
         categoryId: 1,
       },
       {
         id: 2,
         name: 'Banana',
         price: 40,
-        image: 'https://via.placeholder.com/150',
+        image: require('../../assets/images/Fruite2.jpg'),
         categoryId: 1,
       },
       {
         id: 3,
         name: 'Tomato',
         price: 30,
-        image: 'https://via.placeholder.com/150',
+        image: require('../../assets/images/Tomato.jpg'),
         categoryId: 1,
       },
       {
         id: 4,
         name: 'Potato',
         price: 25,
-        image: 'https://via.placeholder.com/150',
+        image: require('../../assets/images/Potato.jpg'),
         categoryId: 1,
       },
       {
         id: 5,
         name: 'Onion',
         price: 35,
-        image: 'https://via.placeholder.com/150',
+        image: require('../../assets/images/Onion.jpg'),
         categoryId: 1,
       },
     ],
@@ -66,131 +68,341 @@ const Categories = [
     name: 'Cooking Oil & Ghee',
     backgroundColor: '#F8A44C1A',
     image: require('../../assets/images/Cookingoil.png'),
-    Product:[
-      { id: 6, name: 'Sunflower Oil', price: 180, image: 'https://via.placeholder.com/150', categoryId: 2 },
-  { id: 7, name: 'Mustard Oil', price: 160, image: 'https://via.placeholder.com/150', categoryId: 2 },
-  { id: 8, name: 'Olive Oil', price: 420, image: 'https://via.placeholder.com/150', categoryId: 2 },
-  { id: 9, name: 'Coconut Oil', price: 250, image: 'https://via.placeholder.com/150', categoryId: 2 },
-  { id: 10, name: 'Desi Ghee', price: 550, image: 'https://via.placeholder.com/150', categoryId: 2 },
-
-    ]
+    Product: [
+      {
+        id: 6,
+        name: 'Sunflower Oil',
+        price: 180,
+        image: require('../../assets/images/SunflowerOil.jpg'),
+        categoryId: 2,
+      },
+      {
+        id: 7,
+        name: 'Mustard Oil',
+        price: 160,
+        image: require('../../assets/images/MustardOil.jpg'),
+        categoryId: 2,
+      },
+      {
+        id: 8,
+        name: 'Olive Oil',
+        price: 420,
+        image: require('../../assets/images/OliveOil.jpg'),
+        categoryId: 2,
+      },
+      {
+        id: 9,
+        name: 'Coconut Oil',
+        price: 250,
+        image: require('../../assets/images/CoconutOil.jpg'),
+        categoryId: 2,
+      },
+      {
+        id: 10,
+        name: 'Desi Ghee',
+        price: 550,
+        image: require('../../assets/images/DesiGhee.jpg'),
+        categoryId: 2,
+      },
+    ],
   },
   {
     id: 3,
     name: 'Meat & Fish',
     backgroundColor: '#F7A59340',
     image: require('../../assets/images/Meat&Fish.png'),
-        Product:[
-           { id: 11, name: 'Chicken Breast', price: 260, image: 'https://via.placeholder.com/150', categoryId: 3 },
-  { id: 12, name: 'Chicken Curry Cut', price: 220, image: 'https://via.placeholder.com/150', categoryId: 3 },
-  { id: 13, name: 'Mutton', price: 650, image: 'https://via.placeholder.com/150', categoryId: 3 },
-  { id: 14, name: 'Fish Rohu', price: 300, image: 'https://via.placeholder.com/150', categoryId: 3 },
-  { id: 15, name: 'Fish Prawns', price: 450, image: 'https://via.placeholder.com/150', categoryId: 3 },
-
-        ]
+    Product: [
+      {
+        id: 11,
+        name: 'Chicken Breast',
+        price: 260,
+        image: require('../../assets/images/ChickenBreast.jpg'),
+        categoryId: 3,
+      },
+      {
+        id: 12,
+        name: 'Chicken Curry Cut',
+        price: 220,
+        imager: require('../../assets/images/ChickenCurryCut.jpg'),
+        categoryId: 3,
+      },
+      {
+        id: 13,
+        name: 'Mutton',
+        price: 650,
+        image: require('../../assets/images/Mutton.jpg'),
+        categoryId: 3,
+      },
+      {
+        id: 14,
+        name: 'Fish Rohu',
+        price: 300,
+        image: require('../../assets/images/FishRohu.jpg'),
+        categoryId: 3,
+      },
+      {
+        id: 15,
+        name: 'Fish Prawns',
+        price: 450,
+        image: require('../../assets/images/FishPrawns.jpg'),
+        categoryId: 3,
+      },
+    ],
   },
   {
     id: 4,
     name: 'Bakery & Snacks',
     backgroundColor: '#D3B0E040',
     image: require('../../assets/images/Backery&Snack.png'),
-        Product:[
-           { id: 16, name: 'Bread', price: 40, image: 'https://via.placeholder.com/150', categoryId: 4 },
-  { id: 17, name: 'Cake', price: 250, image: 'https://via.placeholder.com/150', categoryId: 4 },
-  { id: 18, name: 'Cookies', price: 60, image: 'https://via.placeholder.com/150', categoryId: 4 },
-  { id: 19, name: 'Chips', price: 20, image: 'https://via.placeholder.com/150', categoryId: 4 },
-  { id: 20, name: 'Donut', price: 70, image: 'https://via.placeholder.com/150', categoryId: 4 },
-
-        ]
+    Product: [
+      {
+        id: 16,
+        name: 'Bread',
+        price: 40,
+        image: require('../../assets/images/Bread.jpg'),
+        categoryId: 4,
+      },
+      {
+        id: 17,
+        name: 'Cake',
+        price: 250,
+        image: require('../../assets/images/Cake.jpg'),
+        categoryId: 4,
+      },
+      {
+        id: 18,
+        name: 'Cookies',
+        price: 60,
+        image: require('../../assets/images/Cookies.jpg'),
+        categoryId: 4,
+      },
+      {
+        id: 19,
+        name: 'Chips',
+        price: 20,
+        image: require('../../assets/images/Chips.jpg'),
+        categoryId: 4,
+      },
+      {
+        id: 20,
+        name: 'Donut',
+        price: 70,
+        image: require('../../assets/images/Donut.jpg'),
+        categoryId: 4,
+      },
+    ],
   },
   {
     id: 5,
     name: 'Dairy & Eggs',
     backgroundColor: '#FDE59840',
     image: require('../../assets/images/Dairy&Eggs.png'),
-        Product:[
-           { id: 21, name: 'Milk', price: 55, image: 'https://via.placeholder.com/150', categoryId: 5 },
-  { id: 22, name: 'Curd', price: 45, image: 'https://via.placeholder.com/150', categoryId: 5 },
-  { id: 23, name: 'Butter', price: 90, image: 'https://via.placeholder.com/150', categoryId: 5 },
-  { id: 24, name: 'Paneer', price: 180, image: 'https://via.placeholder.com/150', categoryId: 5 },
-  { id: 25, name: 'Eggs', price: 85, image: 'https://via.placeholder.com/150', categoryId: 5 },
-
-        ]
+    Product: [
+      {
+        id: 21,
+        name: 'Milk',
+        price: 55,
+        image: require('../../assets/images/Milk.jpg'),
+        categoryId: 5,
+      },
+      {
+        id: 22,
+        name: 'Curd',
+        price: 45,
+        image: require('../../assets/images/Curd.jpg'),
+        categoryId: 5,
+      },
+      {
+        id: 23,
+        name: 'Butter',
+        price: 90,
+        image: require('../../assets/images/Butter.jpg'),
+        categoryId: 5,
+      },
+      {
+        id: 24,
+        name: 'Paneer',
+        price: 180,
+        image: require('../../assets/images/Paneer.jpg'),
+        categoryId: 5,
+      },
+      {
+        id: 25,
+        name: 'Eggs',
+        price: 85,
+        image: require('../../assets/images/Eggs.jpg'),
+        categoryId: 5,
+      },
+    ],
   },
   {
     id: 6,
     name: 'Beverages',
     backgroundColor: '#B7DFF540',
     image: require('../../assets/images/Beverages.png'),
-        Product:[
-          { id: 26, name: 'Coca Cola', price: 40, image: 'https://via.placeholder.com/150', categoryId: 6 },
-  { id: 27, name: 'Pepsi', price: 40, image: 'https://via.placeholder.com/150', categoryId: 6 },
-  { id: 28, name: 'Orange Juice', price: 60, image: 'https://via.placeholder.com/150', categoryId: 6 },
-  { id: 29, name: 'Cold Coffee', price: 70, image: 'https://via.placeholder.com/150', categoryId: 6 },
-  { id: 30, name: 'Mineral Water', price: 20, image: 'https://via.placeholder.com/150', categoryId: 6 }
-
-        ]
+    Product: [
+      {
+        id: 26,
+        name: 'Coca Cola',
+        price: 40,
+        image: require('../../assets/images/CocaCola.jpg'),
+        categoryId: 6,
+      },
+      {
+        id: 27,
+        name: 'Pepsi',
+        price: 40,
+        image: require('../../assets/images/Pepsi.jpg'),
+        categoryId: 6,
+      },
+      {
+        id: 28,
+        name: 'Orange Juice',
+        price: 60,
+        image: require('../../assets/images/OrangeJuice.jpg'),
+        categoryId: 6,
+      },
+      {
+        id: 29,
+        name: 'Cold Coffee',
+        price: 70,
+        image: require('../../assets/images/ColdCoffee.jpg'),
+        categoryId: 6,
+      },
+      {
+        id: 30,
+        name: 'Mineral Water',
+        price: 20,
+        image: require('../../assets/images/MineralWater.jpg'),
+        categoryId: 6,
+      },
+    ],
   },
 ];
 
 const Explore = () => {
-  const navigation=useNavigation()
-const handleNavigate=(item:any)=>{
-    // navigation.navigate();
+  const navigation = useNavigation();
+  const [searchText, setSearchText] = useState('');
+  const [showFilter, setShowFilter] = useState(false);
 
-}
+  const allProducts = Categories.flatMap(cat =>
+    cat.Product.map(p => ({ ...p, categoryName: cat.name })),
+  );
+
+  const filteredProducts = allProducts.filter(item =>
+    item.name.toLowerCase().includes(searchText.toLowerCase()),
+  );
+
+  const handleCategoryPress = item => {
+    navigation.navigate('ProductCategory', item);
+  };
 
   return (
     <View style={styles.container}>
-      <View style={{ height: '8%', justifyContent: 'center' }}>
-        <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 600 }}>
-          Find Products
-        </Text>
-      </View>
-      <View style={styles.searchBox}>
-        <Image
-          source={require('../../assets/images/Vector-Search.png')}
-          style={styles.searchIcon}
-        />
-        <AppInput placeholder="search store" autoFocus={true} />
+      <Text style={styles.headerText}>Find Products</Text>
+
+      {/* Search */}
+      <View style={styles.searchWrapper}>
+        <View style={styles.searchBox}>
+          <Image
+            source={require('../../assets/images/Vector-Search.png')}
+            style={styles.searchIcon}
+          />
+
+          <AppInput
+            placeholder="Search Store"
+            value={searchText}
+            onChangeText={setSearchText}
+            style={styles.searchInput}
+          />
+
+          {searchText.length > 0 && (
+            <TouchableOpacity onPress={() => setSearchText('')}>
+              <Image
+                source={require('../../assets/images/Clear.png')}
+                style={styles.clearIcon}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {searchText.length > 0 && filteredProducts.length > 0 && (
+          <TouchableOpacity
+            style={styles.filterButton}
+            onPress={() => setShowFilter(true)}
+          >
+            <Image
+              source={require('../../assets/images/Filter.png')}
+              style={styles.filterIcon}
+            />
+          </TouchableOpacity>
+        )}
       </View>
 
-      <ScrollView style={{ flex: 1 }}>
+      <FilterScreen visible={showFilter} onClose={() => setShowFilter(false)} />
+
+      {searchText.length > 0 ? (
+        filteredProducts.length > 0 ? (
+          <FlatList
+            data={filteredProducts}
+            keyExtractor={item => item.id.toString()}
+            numColumns={2}
+            contentContainerStyle={styles.listContainer}
+            renderItem={({ item }) => (
+              <View style={styles.productWrapper}>
+                <View style={styles.productCard}>
+                  <Image source={item.image} style={styles.productImage} />
+
+                  <Text style={styles.productName}>{item.name}</Text>
+
+                  <View style={styles.productFooter}>
+                    <Text style={styles.productPrice}>${item.price}</Text>
+
+                    <TouchableOpacity style={styles.addBtn}>
+                      <Image
+                        source={require('../../assets/images/Vector-plus.png')}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            )}
+          />
+        ) : (
+          <View style={styles.noResultContainer}>
+            <Text style={styles.noResultText}>No products found</Text>
+            <Text style={styles.noResultSubText}>
+              Try searching with different keywords
+            </Text>
+          </View>
+        )
+      ) : (
         <FlatList
           data={Categories}
-          // horizontal
-          contentContainerStyle={{ padding: 12 }}
           numColumns={2}
+          contentContainerStyle={styles.listContainer}
+          keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity style={{ padding: 8 }} onPress={()=>handleNavigate(item as never)}>
+            <TouchableOpacity
+              style={styles.categoryWrapper}
+              onPress={() => handleCategoryPress(item)}
+            >
               <View
-                style={{
-                  height: 200,
-                  width: 170,
-                  backgroundColor: item.backgroundColor,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 10,
-                  borderColor: item.backgroundColor,
-                  borderWidth: 2,
-                  gap: 10,
-                }}
-                key={item.id}
+                style={[
+                  styles.categoryCard,
+                  {
+                    backgroundColor: item.backgroundColor,
+                    borderColor: item.backgroundColor,
+                  },
+                ]}
               >
-                <Image
-                  source={item.image}
-                  style={{ height: 120, width: 120, objectFit: 'contain' }}
-                />
-                <Text
-                  style={{ textAlign: 'center', fontWeight: 500, width: 100 }}
-                >
-                  {item.name}
-                </Text>
+                <Image source={item.image} style={styles.categoryImage} />
+                <Text style={styles.categoryText}>{item.name}</Text>
               </View>
             </TouchableOpacity>
           )}
         />
-      </ScrollView>
+      )}
     </View>
   );
 };
@@ -198,127 +410,163 @@ const handleNavigate=(item:any)=>{
 export default Explore;
 
 const styles = StyleSheet.create({
-  searchBox: {
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+
+  headerText: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 20,
+  },
+
+  searchWrapper: {
     flexDirection: 'row',
-    marginHorizontal: 20,
+    alignItems: 'center',
+    padding: 16,
+  },
+
+  searchBox: {
+    flex: 1,
+    height: 42,
     backgroundColor: '#F2F3F2',
     borderRadius: 10,
-    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
   },
 
   searchIcon: {
-    margin: 10,
+    width: 20,
+    height: 20,
+    tintColor: '#777',
   },
-  container: {
+
+  searchInput: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    fontSize: 16,
+    paddingVertical: 0,
+    color: '#000',
   },
 
-  imageWrapper: {
-    height: height * 0.5,
-    elevation: 2,
-  },
-
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 50,
-    paddingHorizontal: 20,
-    alignItems: 'center',
+  clearIcon: {
+    width: 18,
+    height: 18,
     position: 'absolute',
-    zIndex: 1,
-    width: '100%',
+    right: 20,
+    top: -8,
+  },
+
+  filterButton: {
+    marginLeft: 12,
+    height: 48,
+    width: 48,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  filterIcon: {
+    width: 16,
+    height: 16,
+  },
+
+  listContainer: {
+    padding: 12,
+  },
+
+  productWrapper: {
+    padding: 8,
+  },
+
+  productCard: {
+    height: 230,
+    width: 170,
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#d4cdcdff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   productImage: {
-    height: height * 0.5,
-    width: width,
-    resizeMode: 'cover',
+    height: 120,
+    width: 120,
+    resizeMode: 'contain',
   },
 
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: Colors.whiteFF,
-    marginBottom: 10,
+  productName: {
+    fontSize: 16,
+    fontWeight: '500',
+    width: '100%',
+    paddingLeft: 10,
+  },
+
+  productFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
     paddingHorizontal: 10,
   },
 
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-    marginBottom: 20,
+  productPrice: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 
-  titleText: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-
-  quantityRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
+  addBtn: {
+    backgroundColor: Colors.green75,
+    height: 40,
+    width: 40,
+    borderRadius: 10,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
   },
 
-  qtyBox: {
-    flexDirection: 'row',
-    gap: 20,
+  categoryWrapper: {
+    padding: 8,
   },
 
-  qtyText: {
-    fontSize: 30,
+  categoryCard: {
+    height: 200,
+    width: 170,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
   },
 
-  qtyNumber: {
-    fontSize: 20,
-    borderWidth: 1,
-    paddingHorizontal: 15,
-    borderRadius: 15,
+  categoryImage: {
+    height: 120,
+    width: 120,
+    resizeMode: 'contain',
+  },
+
+  categoryText: {
     textAlign: 'center',
-    paddingVertical: 10,
-  },
-
-  qtyPlus: {
-    fontSize: 30,
-    color: Colors.green75,
-  },
-
-  priceText: {
-    fontSize: 20,
     fontWeight: '500',
+    width: '50%',
   },
 
-  divider: {
-    height: 1,
-    backgroundColor: '#E2E2E2',
-  },
-
-  rowBetween: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  noResultContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    marginVertical: 10,
+    paddingTop: 40,
   },
 
-  sectionTitle: {
-    fontWeight: '500',
+  noResultText: {
+    fontSize: 18,
+    fontWeight: '600',
   },
 
-  description: {
-    paddingHorizontal: 15,
-    marginBottom: 20,
-  },
-
-  reviewRow: {
-    flexDirection: 'row',
-    gap: 20,
-  },
-
-  buttonWrapper: {
-    padding: 10,
+  noResultSubText: {
+    fontSize: 14,
+    color: '#777',
+    marginTop: 5,
   },
 });

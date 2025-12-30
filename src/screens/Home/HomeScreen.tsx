@@ -76,7 +76,7 @@ const HomeScreen = () => {
       {/* Search */}
       <View style={styles.searchBox}>
         <Image source={require('../../assets/images/Vector-Search.png')} style={styles.searchIcon} />
-        <AppInput placeholder="search store"  autoFocus={true}/>
+        <AppInput placeholder="search store"  autoFocus={false}/>
       </View>
 
       {/* Slider */}

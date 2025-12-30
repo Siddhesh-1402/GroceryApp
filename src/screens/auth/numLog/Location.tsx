@@ -46,7 +46,7 @@ const Location = () => {
           <View style={styles.form}>
             <Text style={styles.label}>Your Zone</Text>
             <View style={styles.dropdown}>
-              <AppInput placeholder="Type you area" />
+              <AppInput placeholder="Type you area" autoFocus={true} />
               <Image
                 source={require('../../../assets/images/Vector-Down.png')}
                 style={{ right: 20, top: 10 }}
@@ -56,7 +56,7 @@ const Location = () => {
 
             <Text style={styles.label}>Your Area</Text>
             <View style={styles.dropdown}>
-              <AppInput placeholder="Types of your area" />
+              <AppInput placeholder="Types of your area" autoFocus={true} />
               <Image
                 source={require('../../../assets/images/Vector-Down.png')}
                 style={{ right: 20, top: 10 }}
