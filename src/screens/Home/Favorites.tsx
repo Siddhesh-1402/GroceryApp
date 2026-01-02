@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 
 import { Colors } from '../../theme/Colors';
@@ -13,12 +14,27 @@ import AppButton from '../../components/AppButton';
 import CheckoutScreen from '../checkout/CheckOutScreen';
 import { useFav } from '../../context/FavContext';
 import ErrorScreen from '../error/ErrorScreen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Favorites = () => {
   const { Fav, addToFav } = useFav();
   const [showFail, setShowFail] = useState(false);
+   const insets = useSafeAreaInsets();
+  
+  
   return (
-    <View style={styles.container}>
+    <View  style={[
+            styles.container,
+            {
+              marginTop: insets.top,
+            },
+          ]}
+        >
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={Colors.whiteFF}
+            translucent
+          />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Favorites</Text>
       </View>

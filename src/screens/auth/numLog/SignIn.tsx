@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Image,
@@ -10,8 +10,13 @@ import {
 import { Colors } from '../../../theme/Colors';
 import AppButton from '../../../components/AppButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AppInput from '../../../components/AppInput';
 
 const SignIn: React.FC = ({ navigation }) => {
+  const insets = useSafeAreaInsets();
+  const [phone, setPhone] = useState('');
+
   const { width, height } = Dimensions.get('window');
 
   return (
@@ -20,7 +25,10 @@ const SignIn: React.FC = ({ navigation }) => {
         source={require('../../../assets/images/groceryImg.jpg')}
         style={[styles.bgImage, { width: width * 1.4, height: width * 1.5 }]}
       />
-<Image source={require('../../../assets/images/Carrot-Orange.png')} style={styles.carrotImg}/>
+      <Image
+        source={require('../../../assets/images/Carrot-Orange.png')}
+        style={styles.carrotImg}
+      />
       <Text style={styles.nectarText}>nectar</Text>
 
       <View style={[styles.bottomContainer, { height: height * 0.6 }]}>
@@ -35,7 +43,22 @@ const SignIn: React.FC = ({ navigation }) => {
             style={styles.flag}
           />
           <Text style={styles.countryCode}>+880</Text>
+          <AppInput
+            placeholder="Enter your Number"
+            keyboardType="number-pad"
+            value={phone}
+            onChangeText={setPhone}
+          />
         </TouchableOpacity>
+
+        {phone.length > 0 && (
+          <TouchableOpacity
+            style={styles.nextBtn}
+            onPress={() => navigation.navigate('Verification' as never)}
+          >
+            <Image source={require('../../../assets/images/Frame.png')} />
+          </TouchableOpacity>
+        )}
 
         <View style={styles.divider} />
 
@@ -56,7 +79,7 @@ const SignIn: React.FC = ({ navigation }) => {
               }}
             />
             <AppButton
-              title="Continue with Google"
+              title="Continue with Number"
               onPress={() => navigation.navigate('Number')}
               backgroundColor={Colors.purpleEC}
             />
@@ -76,7 +99,7 @@ const SignIn: React.FC = ({ navigation }) => {
             />
             <AppButton
               title="Continue with Facebook"
-              onPress={() => navigation.navigate('Number')}
+              // onPress={() => navigation.navigate('Number')}
               backgroundColor={Colors.purpleAC}
             />
           </View>
@@ -158,16 +181,23 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-   
   },
-  carrotImg:{
-
+  carrotImg: {
     fontSize: 20,
     position: 'absolute',
     right: 40,
     top: 80,
     // transform: [{ rotate: '-130deg' }],
- 
-
-  }
+  },
+  nextBtn: {
+    position: 'absolute',
+    bottom: '67%',
+    right: 10,
+    width: 40,
+    height: 40,
+    borderRadius: 35,
+    backgroundColor: Colors.green75,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Colors } from '../theme/Colors';
 import AppButton from '../components/AppButton';
@@ -8,8 +8,10 @@ const Onboarding = ({ navigation }) => {
     navigation.navigate('Auth');
   };
 
+  
   return (
     <View style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor={"transparent"} translucent />
       <View>
         <Image
           source={require('../assets/images/welcomeImg.jpg')}

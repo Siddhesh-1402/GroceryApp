@@ -6,15 +6,18 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import { useCart } from '../../context/CartContext';
 import { Colors } from '../../theme/Colors';
 import AppButton from '../../components/AppButton';
 import CheckoutScreen from '../checkout/CheckOutScreen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Cart = () => {
   const { cart, removeFromCart, increaseQty, decreaseQty } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -22,7 +25,19 @@ const Cart = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          marginTop: insets.top,
+        },
+      ]}
+    >
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={Colors.whiteFF}
+        translucent
+      />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>My Cart</Text>
       </View>

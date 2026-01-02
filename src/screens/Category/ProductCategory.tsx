@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,6 +13,7 @@ import { RootStackParamList } from '../../navigation/type';
 import { Colors } from '../../theme/Colors';
 import FilterScreen from '../Filter/FilterScreen';
 import { useCart } from '../../context/CartContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type ProductCategoryRouteProp = RouteProp<
   RootStackParamList,
@@ -22,6 +24,7 @@ const ProductCategory = ({ route }: { route: ProductCategoryRouteProp }) => {
   const navigation = useNavigation();
   const [showFilter, setShowFilter] = useState(false);
   const {addToCart}=useCart()
+    const insets = useSafeAreaInsets();
 
     const handleNavigate = (item: any) => {
     navigation.navigate('ProductDetails', { Product: item });
@@ -30,7 +33,18 @@ const ProductCategory = ({ route }: { route: ProductCategoryRouteProp }) => {
   const { name, Product } = route.params || {};
 
   return (
-    <View style={styles.container}>
+    <View  style={[
+                styles.container,
+                {
+                  marginTop: insets.top,
+                },
+              ]}
+            >
+              <StatusBar
+                barStyle="dark-content"
+                backgroundColor={Colors.whiteFF}
+                translucent
+              />
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>

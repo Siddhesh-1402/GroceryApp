@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,7 +14,8 @@ import { Colors } from '../../theme/Colors';
 import AppButton from '../../components/AppButton';
 import { useCart } from '../../context/CartContext';
 import { useFav } from '../../context/FavContext';
-
+import { Back } from '../../assets/svg/Index';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type ProductDetailsRouteProp = RouteProp<RootStackParamList, 'ProductDetails'>;
 
@@ -22,16 +24,30 @@ const { height, width } = Dimensions.get('window');
 const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
   const { Product } = route.params;
   const navigation = useNavigation();
-    const {addToCart}=useCart()
-    const {addToFav}=useFav()
+  const { addToCart } = useCart();
+  const { addToFav } = useFav();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          marginTop: insets.top,
+        },
+      ]}
+    >
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={Colors.whiteFF}
+        translucent
+      />
       {/* Image Section */}
       <View style={styles.imageWrapper}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={require('../../assets/images/Vector.png')} />
+            {/* <Image source={require('../../assets/images/Vector.png')} /> */}
+            <Back height={20} width={20} />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image source={require('../../assets/images/Vector-Send.png')} />
@@ -45,9 +61,8 @@ const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
         {/* Title */}
         <View style={styles.titleRow}>
           <Text style={styles.titleText}>{Product.name}</Text>
-          <TouchableOpacity  onPress={()=> addToFav(Product)}>
-
-          <Image source={require('../../assets/images/Vector-Like.png')} />
+          <TouchableOpacity onPress={() => addToFav(Product)}>
+            <Image source={require('../../assets/images/Vector-Like.png')} />
           </TouchableOpacity>
         </View>
 
@@ -102,10 +117,7 @@ const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <AppButton
-            title="Add To Basket"
-           onPress={()=> addToCart(Product)}
-          />
+          <AppButton title="Add To Basket" onPress={() => addToCart(Product)} />
         </View>
       </ScrollView>
     </View>

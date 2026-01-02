@@ -1,9 +1,12 @@
-import { Image, StyleSheet, Text, View, Animated } from 'react-native';
+import { Image, StyleSheet, Text, View, Animated, StatusBar } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 import { Colors } from '../theme/Colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const SplashScreen = ({ navigation }) => {
   const translateY = useRef(new Animated.Value(0)).current;
+
+   const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const jumpAnimation = Animated.loop(
@@ -34,8 +37,21 @@ const SplashScreen = ({ navigation }) => {
     };
   }, []);
 
+
+
   return (
-    <View style={styles.container}>
+    <View  style={[
+        styles.container,
+        {
+       
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}>
+              <StatusBar barStyle="light-content" backgroundColor={Colors.green75}/>
+
       <View style={styles.box}>
         <Animated.View style={{ transform: [{ translateY }] }}>
           <Image

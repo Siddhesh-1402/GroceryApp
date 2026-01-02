@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,6 +24,7 @@ const HomeScreen = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const navigation = useNavigation<HomeNavigationProp>();
   const listRef = useRef<FlatList>(null);
+  
 
   const handleNavigate = (item: any) => {
     navigation.navigate('ProductDetails', { Product: item });
@@ -64,6 +66,8 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <StatusBar barStyle="dark-content" backgroundColor={Colors.whiteFF} translucent />
       {/* Header */}
       <View style={styles.header}>
         <Image source={require('../../assets/images/Group.png')} style={styles.logo} />
@@ -110,7 +114,7 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      <ScrollView style={styles.scrollView}>
+    
         {/* Exclusive */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Exclusive Offer</Text>
@@ -120,6 +124,7 @@ const HomeScreen = () => {
         <FlatList
           horizontal
           data={ExclusiveOffer}
+          showsHorizontalScrollIndicator={false}
           keyExtractor={item => item.id.toString()}
           contentContainerStyle={styles.cardList}
           renderItem={({ item }) => (
@@ -149,6 +154,7 @@ const HomeScreen = () => {
           horizontal
           data={BestSelling}
           keyExtractor={item => item.id.toString()}
+           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.cardList}
           renderItem={({ item }) => (
             <TouchableOpacity

@@ -2,6 +2,7 @@ import {
   Image,
   Keyboard,
   KeyboardAvoidingView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,14 +14,17 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../../../theme/Colors';
 import AppInput from '../../../components/AppInput';
 import AppButton from '../../../components/AppButton';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Location = () => {
   const navigation = useNavigation();
+   const insets = useSafeAreaInsets();
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
+        <View style={[styles.container, {paddingTop: insets.top,}]}>
+          <StatusBar barStyle="dark-content"   translucent/>
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}

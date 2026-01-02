@@ -9,14 +9,17 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
+  StatusBar,
 } from 'react-native';
 import { CountryPicker } from 'react-native-country-codes-picker';
 import { Colors } from '../../../theme/Colors';
 import AppInput from '../../../components/AppInput';
 import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Number = () => {
+  const insets = useSafeAreaInsets();
   const [show, setShow] = useState(false);
   const [dialCode, setDialCode] = useState('+880');
   const [flag, setFlag] = useState('🇧🇩');
@@ -26,13 +29,20 @@ const Number = () => {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
+        <View
+          style={[
+            styles.container,
+            {
+              paddingTop: insets.top,
+            },
+          ]}
+        >
+          <StatusBar barStyle="dark-content" backgroundColor={Colors.whiteFF} translucent />
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
           >
-
-            <Image source={require('../../../assets/images/Vector.png')}/>
+            <Image source={require('../../../assets/images/Vector.png')} />
           </TouchableOpacity>
 
           <Text style={styles.title}>Enter your mobile number</Text>
@@ -47,7 +57,7 @@ const Number = () => {
               <Text style={styles.code}>{dialCode}</Text>
             </TouchableOpacity>
 
-            <AppInput keyboardType="number-pad" autoFocus={true}/>
+            <AppInput keyboardType="number-pad" autoFocus={true} />
           </View>
 
           <View style={styles.divider} />
@@ -67,7 +77,7 @@ const Number = () => {
             style={styles.nextBtn}
             onPress={() => navigation.navigate('Verification' as never)}
           >
-          <Image source={require('../../../assets/images/Frame.png')}/>
+            <Image source={require('../../../assets/images/Frame.png')} />
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>

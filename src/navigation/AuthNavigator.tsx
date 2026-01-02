@@ -7,7 +7,8 @@ import Location from '../screens/auth/numLog/Location';
 import LogIn from '../screens/auth/LogIn';
 import SignUp from '../screens/auth/SignUp';
 import Number from '../screens/auth/numLog/Number';
-import TabNavigator from './TabNavigator';
+import DrawerNavigator from './DrawerNavigator';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="Location" component={Location} />
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Tabs" component={TabNavigator} />
+      <Stack.Screen name="Drawer" component={DrawerNavigator} />
     </Stack.Navigator>
   );
 };

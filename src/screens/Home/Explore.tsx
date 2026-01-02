@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/type';
 import ProductCategory from '../Category/ProductCategory';
 import FilterScreen from '../Filter/FilterScreen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const { height, width } = Dimensions.get('window');
 
@@ -284,6 +286,7 @@ const Explore = () => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [showFilter, setShowFilter] = useState(false);
+   const insets = useSafeAreaInsets();
 
   const allProducts = Categories.flatMap(cat =>
     cat.Product.map(p => ({ ...p, categoryName: cat.name })),
@@ -298,7 +301,13 @@ const Explore = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View   style={[
+            styles.container,
+            {
+              paddingTop: insets.top,
+            },
+          ]}>
+       <StatusBar barStyle="dark-content" backgroundColor={Colors.whiteFF} translucent />
       <Text style={styles.headerText}>Find Products</Text>
 
       {/* Search */}

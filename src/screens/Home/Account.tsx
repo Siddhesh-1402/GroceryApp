@@ -6,12 +6,27 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import { Colors } from '../../theme/Colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AccountScreen = () => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <View  style={[
+            styles.container,
+            {
+              marginTop: insets.top,
+            },
+          ]}
+        >
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={Colors.whiteFF}
+            translucent
+          />
       {/* Header */}
       <View style={styles.profileContainer}>
         <Image
