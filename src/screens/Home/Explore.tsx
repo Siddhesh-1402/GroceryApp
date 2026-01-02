@@ -349,7 +349,7 @@ const Explore = () => {
             numColumns={2}
             contentContainerStyle={styles.listContainer}
             renderItem={({ item }) => (
-              <View style={styles.productWrapper}>
+              <TouchableOpacity style={styles.productWrapper}   onPress={() => navigation.navigate('ProductDetails', { Product: item })}>
                 <View style={styles.productCard}>
                   <Image source={item.image} style={styles.productImage} />
 
@@ -365,7 +365,7 @@ const Explore = () => {
                     </TouchableOpacity>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
           />
         ) : (

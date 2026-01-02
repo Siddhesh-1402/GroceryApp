@@ -23,6 +23,10 @@ const ProductCategory = ({ route }: { route: ProductCategoryRouteProp }) => {
   const [showFilter, setShowFilter] = useState(false);
   const {addToCart}=useCart()
 
+    const handleNavigate = (item: any) => {
+    navigation.navigate('ProductDetails', { Product: item });
+  };
+
   const { name, Product } = route.params || {};
 
   return (
@@ -52,7 +56,7 @@ const ProductCategory = ({ route }: { route: ProductCategoryRouteProp }) => {
         numColumns={2}
         contentContainerStyle={styles.listContainer}
         renderItem={({ item }) => (
-          <View style={styles.cardWrapper}>
+          <TouchableOpacity style={styles.cardWrapper} onPress={() => handleNavigate(item)}>
             <View style={styles.card}>
               <Image source={item.image} style={styles.productImage} />
 
@@ -68,7 +72,7 @@ const ProductCategory = ({ route }: { route: ProductCategoryRouteProp }) => {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

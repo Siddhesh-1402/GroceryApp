@@ -3,13 +3,16 @@ export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
   Auth: undefined;
-
+  orderAccept: undefined
+  errorScreen: undefined
+ 
 
   ProductDetails: {
     Product: {
       id: number;
       name: string;
       image: any;
+      price: number
     };
   };
 

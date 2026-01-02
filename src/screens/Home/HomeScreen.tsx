@@ -35,19 +35,19 @@ const HomeScreen = () => {
   ];
 
   const ExclusiveOffer = [
-    { id: 1, image: require('../../assets/images/Fruite1.jpg'), name: 'Orange' },
-    { id: 2, image: require('../../assets/images/Fruite2.jpg'), name: 'Banana' },
-    { id: 3, image: require('../../assets/images/Fruite3.jpg'), name: 'Papaya' },
-    { id: 4, image: require('../../assets/images/Fruite4.jpg'), name: 'Strawbwery' },
-    { id: 5, image: require('../../assets/images/Fruite5.jpg'), name: 'PineApple' },
+    { id: 1, image: require('../../assets/images/Fruite1.jpg'), name: 'Orange',price:20 },
+    { id: 2, image: require('../../assets/images/Fruite2.jpg'), name: 'Banana',price:30 },
+    { id: 3, image: require('../../assets/images/Fruite3.jpg'), name: 'Papaya',price:50 },
+    { id: 4, image: require('../../assets/images/Fruite4.jpg'), name: 'Strawbwery',price:40  },
+    { id: 5, image: require('../../assets/images/Fruite5.jpg'), name: 'PineApple',price:10  },
   ];
 
   const BestSelling = [
-    { id: 1, image: require('../../assets/images/Fruite6.jpg'), name: 'Kiwi' },
-    { id: 2, image: require('../../assets/images/Fruite7.jpg'), name: 'Cherry' },
-    { id: 3, image: require('../../assets/images/Fruite8.jpg'), name: 'Grapes' },
-    { id: 4, image: require('../../assets/images/Fruite9.jpg'), name: 'Pomegranate' },
-    { id: 5, image: require('../../assets/images/Fruite10.jpg'), name: 'Guava' },
+    { id: 1, image: require('../../assets/images/Fruite6.jpg'), name: 'Kiwi' ,price:50 },
+    { id: 2, image: require('../../assets/images/Fruite7.jpg'), name: 'Cherry',price:30  },
+    { id: 3, image: require('../../assets/images/Fruite8.jpg'), name: 'Grapes',price:60  },
+    { id: 4, image: require('../../assets/images/Fruite9.jpg'), name: 'Pomegranate',price:40  },
+    { id: 5, image: require('../../assets/images/Fruite10.jpg'), name: 'Guava',price:20  },
   ];
 
   useEffect(() => {
@@ -130,7 +130,7 @@ const HomeScreen = () => {
               <Image source={item.image} style={styles.cardImage} />
               <Text style={styles.cardTitle}>{item.name}</Text>
               <View style={styles.cardBottom}>
-                <Text style={styles.price}>$4.99</Text>
+                <Text style={styles.price}>${item.price}</Text>
                 <TouchableOpacity style={styles.addBtn}>
                   <Image source={require('../../assets/images/Vector-plus.png')} />
                 </TouchableOpacity>
@@ -158,7 +158,7 @@ const HomeScreen = () => {
               <Image source={item.image} style={styles.cardImage} />
               <Text style={styles.cardTitle}>{item.name}</Text>
               <View style={styles.cardBottom}>
-                <Text style={styles.price}>$4.99</Text>
+                <Text style={styles.price}>${item.price}</Text>
                 <TouchableOpacity style={styles.addBtn}>
                   <Image source={require('../../assets/images/Vector-plus.png')} />
                 </TouchableOpacity>

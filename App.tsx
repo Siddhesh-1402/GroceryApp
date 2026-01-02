@@ -14,20 +14,21 @@ import AppNavigator from './src/navigation/AppNavigator';
 import TabNavigator from './src/navigation/TabNavigator';
 import ProductDetails from './src/screens/Details/ProductDetails';
 import { CartProvider } from './src/context/CartContext';
+import { FavContexts } from './src/context/FavContext';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <SafeAreaProvider>
-      <CartProvider >
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Screens" component={AppNavigator} />
-
-            {/* <Stack.Screen name="Tabs" component={TabNavigator} /> */}
-          </Stack.Navigator>
-        </NavigationContainer>
+      <CartProvider>
+        <FavContexts>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Screens" component={AppNavigator} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FavContexts>
       </CartProvider>
     </SafeAreaProvider>
   );

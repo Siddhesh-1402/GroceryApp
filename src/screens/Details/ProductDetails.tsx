@@ -11,6 +11,8 @@ import {
 import { RootStackParamList } from '../../navigation/type';
 import { Colors } from '../../theme/Colors';
 import AppButton from '../../components/AppButton';
+import { useCart } from '../../context/CartContext';
+import { useFav } from '../../context/FavContext';
 
 
 type ProductDetailsRouteProp = RouteProp<RootStackParamList, 'ProductDetails'>;
@@ -20,6 +22,8 @@ const { height, width } = Dimensions.get('window');
 const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
   const { Product } = route.params;
   const navigation = useNavigation();
+    const {addToCart}=useCart()
+    const {addToFav}=useFav()
 
   return (
     <View style={styles.container}>
@@ -41,7 +45,10 @@ const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
         {/* Title */}
         <View style={styles.titleRow}>
           <Text style={styles.titleText}>{Product.name}</Text>
+          <TouchableOpacity  onPress={()=> addToFav(Product)}>
+
           <Image source={require('../../assets/images/Vector-Like.png')} />
+          </TouchableOpacity>
         </View>
 
         {/* Quantity & Price */}
@@ -58,7 +65,7 @@ const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.priceText}>$4.99</Text>
+          <Text style={styles.priceText}> ${Product.price}</Text>
         </View>
 
         <View style={styles.divider} />
@@ -72,7 +79,7 @@ const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
         <Text style={styles.description}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
           quo nemo maiores, ex minima porro, nam ratione dignissimos provident
-          accusantium, iure corrupti. Harum, sit in?
+          accusantium, iure corrupti. Harum, sit in
         </Text>
 
         <View style={styles.divider} />
@@ -97,7 +104,7 @@ const ProductDetails = ({ route }: { route: ProductDetailsRouteProp }) => {
         <View style={styles.buttonWrapper}>
           <AppButton
             title="Add To Basket"
-            onPress={() => navigation.goBack()}
+           onPress={()=> addToCart(Product)}
           />
         </View>
       </ScrollView>
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
   productImage: {
     height: height * 0.5,
     width: width,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
 
   scrollContainer: {

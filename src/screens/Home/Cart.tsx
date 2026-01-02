@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,96 +9,90 @@ import {
 } from 'react-native';
 import { useCart } from '../../context/CartContext';
 import { Colors } from '../../theme/Colors';
+import AppButton from '../../components/AppButton';
+import CheckoutScreen from '../checkout/CheckOutScreen';
 
 const Cart = () => {
-  const { cart } = useCart();
+  const { cart, removeFromCart, increaseQty, decreaseQty } = useCart();
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-      <View
-        style={{
-          width: '100%',
-          borderBottomColor: Colors.whiteC4,
-          borderBottomWidth: 1,
-          height: 80,
-          justifyContent: 'center',
-          marginBottom: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 600,
-            textAlign: 'center',
-          }}
-        >
-          My Cart
-        </Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>My Cart</Text>
       </View>
 
-      {/* <FlatList
+      {cart.length === 0 && (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>Your cart is empty</Text>
+        </View>
+      )}
+
+      <FlatList
         data={cart}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          // <View >
-          //   <Image source={item.image} />
-          //   <View>
-          //     <Text >{item.name}</Text>
-          //     <Text>₹{item.price} × {item.quantity}</Text>
-          //   </View>
-          // </View>
-          
-        )}
-      /> */}
-      <View
-        style={{
-          height: 80,
-          flexDirection: 'row',
-          // justifyContent: 'space-between',
-          paddingHorizontal: 10,
-          gap: 20,
+          <View style={styles.cartItem}>
+            <View>
+              <Image source={item.image} style={styles.productImage} />
+            </View>
 
-          marginBottom: 20,
-        }}
-      >
+            <View style={styles.itemInfo}>
+              <Text style={styles.itemName}>{item.name}</Text>
+
+              <View style={styles.qtyBox}>
+                <TouchableOpacity onPress={() => decreaseQty(item.id)}>
+                  <Text style={styles.qtyNumber}>-</Text>
+                </TouchableOpacity>
+
+                <Text style={styles.qtyText}>{item.quantity}</Text>
+
+                <TouchableOpacity onPress={() => increaseQty(item.id)}>
+                  <Text style={styles.qtyNumber}>+</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.rightSection}>
+              <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                <Image
+                  source={require('../../assets/images/Cross.png')}
+                  style={styles.deleteIcon}
+                />
+              </TouchableOpacity>
+
+              <Text style={styles.priceText}>
+                $ {item.price * item.quantity}
+              </Text>
+            </View>
+          </View>
+        )}
+      />
+
+      {cart.length > 0 && (
         <View>
-          <Image
-            source={require('../../assets/images/Apple.png')}
-            style={{ height: 100, width: 100, resizeMode: 'contain' }}
+          <View style={styles.totalBadge}>
+            <Text style={styles.totalText}>$ {totalPrice}</Text>
+          </View>
+
+          <AppButton
+            title="Go to CheckoOut"
+            onPress={() => setShowCheckout(true)}
+            style={{ marginBottom: 10 }}
+          />
+
+          <CheckoutScreen
+            visible={showCheckout}
+            onClose={() => setShowCheckout(false)}
+            total={totalPrice}
           />
         </View>
-
-        <View style={{ gap: 20, width: '50%' }}>
-          <Text style={{ fontSize: 18, fontWeight: 600, left: 10 }}>Apple</Text>
-          <View style={styles.qtyBox}>
-            <TouchableOpacity>
-              <Text style={styles.qtyNumber}>-</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.qtyText}>1</Text>
-
-            <TouchableOpacity>
-              <Text style={styles.qtyNumber}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={{ justifyContent: 'space-between' }}>
-          <TouchableOpacity>
-            <Image
-              source={require('../../assets/images/Cross.png')}
-              style={{
-                tintColor: Colors.greyB1,
-                resizeMode: 'contain',
-                left: 16,
-                top: 5,
-              }}
-            />
-          </TouchableOpacity>
-          <Text style={{ fontSize: 16, fontWeight: 600 }}>$499</Text>
-        </View>
-      </View>
-      <View style={{borderWidth:1}}/>
+      )}
     </View>
   );
 };
@@ -106,10 +100,70 @@ const Cart = () => {
 export default Cart;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    paddingHorizontal: 10,
+  },
+
+  header: {
+    width: '100%',
+    borderBottomColor: Colors.whiteC4,
+    borderBottomWidth: 1,
+    height: 80,
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+
+  emptyContainer: {
+    alignItems: 'center',
+    marginTop: '50%',
+  },
+
+  emptyText: {
+    fontSize: 20,
+    color: '#999',
+    fontWeight: '600',
+  },
+
+  cartItem: {
+    height: 110,
+    flexDirection: 'row',
+    gap: 20,
+    marginBottom: 20,
+    borderBottomWidth: 0.5,
+    width: '94%',
+    alignItems: 'center',
+    borderColor: Colors.greyB1,
+    marginHorizontal: 'auto',
+  },
+
+  productImage: {
+    height: 100,
+    width: 100,
+    resizeMode: 'contain',
+  },
+
+  itemInfo: {
+    gap: 20,
+    width: '50%',
+  },
+
+  itemName: {
+    fontSize: 18,
+    fontWeight: '600',
+    left: 10,
+  },
+
   qtyBox: {
     flexDirection: 'row',
     gap: 10,
-    // justifyContent:"center",
   },
 
   qtyText: {
@@ -126,8 +180,35 @@ const styles = StyleSheet.create({
     borderColor: Colors.greyB1,
   },
 
-  qtyPlus: {
-    fontSize: 20,
-    // color: Colors.green75,
+  rightSection: {
+    justifyContent: 'space-between',
+    gap: 30,
+  },
+
+  deleteIcon: {
+    tintColor: Colors.greyB1,
+    resizeMode: 'contain',
+    left: 16,
+  },
+
+  priceText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
+  totalBadge: {
+    position: 'absolute',
+    zIndex: 1,
+    right: 30,
+    top: 18,
+    backgroundColor: '#489E67',
+    padding: 5,
+    borderRadius: 10,
+  },
+
+  totalText: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: '600',
   },
 });
