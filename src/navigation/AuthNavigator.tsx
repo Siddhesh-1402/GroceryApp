@@ -21,9 +21,10 @@ const AuthNavigator = () => {
       <Stack.Screen name="Location" component={Location} />
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
     </Stack.Navigator>
   );
 };
 
 export default AuthNavigator;
+

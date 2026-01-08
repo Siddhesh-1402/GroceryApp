@@ -59,7 +59,7 @@ const SignUp = () => {
 
           <AppButton
             title="Sign Up"
-            onPress={() => navigation.navigate('Tabs' as never)}
+            onPress={() => navigation.navigate('DrawerNavigator' as never)}
           />
           <TouchableOpacity
             onPress={() => navigation.navigate('LogIn' as never)}

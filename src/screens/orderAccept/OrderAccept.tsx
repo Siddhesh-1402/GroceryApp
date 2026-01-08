@@ -27,13 +27,17 @@ const OrderAccept = () => {
         <View style={styles.buttonWrapper}>
           <AppButton title="Track Order" />
 
+        
           <TouchableOpacity
-            onPress={() =>
-              (navigation as any).navigate('Auth', {
-                screen: 'Tabs',
-                params: { screen: 'Shop' },
-              })
-            }
+            onPress={() => {
+              // Navigate back to the DrawerNavigator's Home screen
+              navigation.navigate('Auth', {
+                screen: 'DrawerNavigator',
+                params: {
+                  screen: 'Home',
+                },
+              });
+            }}
           >
             <Text style={styles.backText}>Back To Home</Text>
           </TouchableOpacity>
@@ -48,7 +52,7 @@ export default OrderAccept;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.02)',
+    backgroundColor: '#FFFF',
   },
 
   topSection: {

@@ -1,5 +1,9 @@
 export type RootStackParamList = {
   Shop: undefined;
+  Explore: undefined;
+  Cart: undefined;
+  Favorites: undefined;
+  Account: undefined;
   Splash: undefined;
   Onboarding: undefined;
   Auth: undefined;
